@@ -5,9 +5,9 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 const WEEKDAYS_SHORT = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 export default function Reports() {
-  const { fetchRecentActivity, fetchExerciseHistory } = useGymData();
+  const { fetchExerciseHistory, fetchAllAttendanceLogs } = useGymData();
   
-  const [activity, setActivity] = useState([]);
+  const [allAttendance, setAllAttendance] = useState([]);
   const [history, setHistory] = useState([]);
   const [exerciseName, setExerciseName] = useState('Barbell Squat');
 
@@ -20,8 +20,8 @@ export default function Reports() {
   }, [exerciseName]);
 
   const loadData = async () => {
-    const act = await fetchRecentActivity();
-    setActivity(act);
+    const atts = await fetchAllAttendanceLogs();
+    setAllAttendance(atts);
   };
 
   const loadChartData = async () => {
@@ -71,7 +71,7 @@ export default function Reports() {
       d.setDate(today.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
       const isFuture = d > today;
-      const attended = activity.some(a => a.date === dateStr);
+      const attended = allAttendance.some(a => a.date === dateStr);
       
       days.push({ 
         dateStr, 
@@ -81,7 +81,7 @@ export default function Reports() {
       });
     }
     return days.slice(-28); // Keep exactly 4 weeks
-  }, [activity]);
+  }, [allAttendance]);
 
   return (
     <div>
@@ -121,7 +121,13 @@ export default function Reports() {
 
       {/* Calendar Grid */}
       <div className="glass-panel mt-4" style={{ padding: '1.5rem' }}>
-        <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Calendar</h3>
+        <div className="flex justify-between items-center mb-4">
+          <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Attendance</h3>
+          <div style={{ background: 'rgba(0, 229, 255, 0.1)', padding: '0.25rem 0.75rem', borderRadius: '12px', border: '1px solid var(--primary-color)' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Total Logged: </span>
+            <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>{allAttendance.length} Days</span>
+          </div>
+        </div>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '0.5rem', textAlign: 'center', marginBottom: '0.5rem' }}>
           {WEEKDAYS_SHORT.map((day, idx) => (

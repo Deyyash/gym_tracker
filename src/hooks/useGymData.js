@@ -244,6 +244,17 @@ export function useGymData() {
     return data || [];
   }, [user]);
 
+  const fetchAllAttendanceLogs = useCallback(async () => {
+    if (!user) return [];
+    const { data, error } = await supabase
+      .from('attendance_logs')
+      .select('date')
+      .eq('user_id', user.id);
+    
+    if (error) setError(error.message);
+    return data || [];
+  }, [user]);
+
   const fetchExerciseHistory = useCallback(async (exerciseName) => {
     if (!user) return [];
     const { data, error } = await supabase
@@ -307,6 +318,7 @@ export function useGymData() {
     fetchPreviousSessionSetsForExercise,
     fetchSetsForAttendance,
     fetchRecentActivity,
+    fetchAllAttendanceLogs,
     fetchExerciseHistory,
     fetchHistoryLogs
   };
