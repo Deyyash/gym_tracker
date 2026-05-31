@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGymData } from '../hooks/useGymData';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
+import { User } from 'lucide-react';
+import ProfileSidebar from './ProfileSidebar';
 
 export default function Dashboard() {
   const { signOut } = useAuth();
@@ -16,6 +17,8 @@ export default function Dashboard() {
   const [newPlanName, setNewPlanName] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [selectedRoutineId, setSelectedRoutineId] = useState('');
+  
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   
   const todayIndex = new Date().getDay();
 
@@ -78,17 +81,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      <div className="flex justify-between items-center">
-        <h1 style={{ color: 'var(--primary-color)', marginBottom: 0 }}>
-          Gym Tracker
-        </h1>
-        <button onClick={signOut} className="btn btn-secondary" style={{ padding: '0.5rem', borderRadius: '50%' }} aria-label="Sign out">
-          <LogOut size={20} />
-        </button>
-      </div>
+    <>
+      <div>
+        <div className="flex justify-between items-center">
+          <h1 style={{ color: 'var(--primary-color)', marginBottom: 0 }}>
+            Gym Tracker
+          </h1>
+          <button onClick={() => setIsProfileOpen(true)} className="btn btn-secondary" style={{ padding: '0.5rem', borderRadius: '50%' }} aria-label="Profile">
+            <User size={20} />
+          </button>
+        </div>
 
-      {/* Plan Management Section */}
+        {/* Plan Management Section */}
       <div className="glass-panel mt-6" style={{ padding: '1.5rem' }}>
         <h3>Your Plans</h3>
         {plans.length > 0 ? (
@@ -189,6 +193,9 @@ export default function Dashboard() {
           )}
         </div>
       )}
-    </div>
+      </div>
+
+      <ProfileSidebar isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+    </>
   );
 }
