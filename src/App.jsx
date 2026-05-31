@@ -20,7 +20,7 @@ function AppContent() {
 
   return (
     <Router>
-      <div className="flex-col" style={{ minHeight: '100vh', display: 'flex' }}>
+      <div className="flex-col" style={{ minHeight: '100vh', display: 'flex', width: '100%' }}>
         {/* Main Content */}
         <main className="container" style={{ flex: 1, paddingBottom: '90px', paddingTop: '2rem' }}>
           <Routes>
