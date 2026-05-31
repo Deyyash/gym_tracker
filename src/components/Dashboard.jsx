@@ -110,18 +110,18 @@ export default function Dashboard() {
           <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>You don't have any workout plans yet.</p>
         )}
 
-        <form onSubmit={handleCreatePlan} className="mt-4" style={{ display: 'flex', gap: '0.5rem' }}>
+        <form onSubmit={handleCreatePlan} className="mt-4" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <input 
             type="text" 
             className="input-field" 
-            style={{ flex: 1, marginBottom: 0 }}
+            style={{ width: '100%', marginBottom: 0 }}
             value={newPlanName}
             onChange={(e) => setNewPlanName(e.target.value)}
             placeholder="New Plan Name"
             required
           />
-          <button className="btn btn-secondary" disabled={isCreating}>
-            Add
+          <button className="btn btn-secondary" style={{ width: '100%' }} disabled={isCreating}>
+            Add Plan
           </button>
         </form>
       </div>
