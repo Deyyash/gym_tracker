@@ -156,21 +156,19 @@ export default function ProfileSidebar({ isOpen, onClose }) {
             <label className="input-label">Contact Number</label>
             <input type="tel" className="input-field" value={contactNo} onChange={e => setContactNo(e.target.value)} placeholder="e.g. +1 234 567 8900" />
           </div>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="input-group" style={{ marginBottom: 0, flex: 1 }}>
-              <label className="input-label">Bodyweight</label>
-              <input type="number" className="input-field" value={bodyweight} onChange={e => setBodyweight(e.target.value)} placeholder="kg/lbs" />
-            </div>
-            <div className="input-group" style={{ marginBottom: 0, flex: 1 }}>
-              <label className="input-label">Primary Goal</label>
-              <select className="input-field" value={goal} onChange={e => setGoal(e.target.value)} style={{ WebkitAppearance: 'none' }}>
-                <option value="">Select Goal</option>
-                <option value="Hypertrophy">Hypertrophy</option>
-                <option value="Strength">Strength</option>
-                <option value="Endurance">Endurance</option>
-                <option value="Weight Loss">Weight Loss</option>
-              </select>
-            </div>
+          <div className="input-group" style={{ marginBottom: 0 }}>
+            <label className="input-label">Bodyweight</label>
+            <input type="number" className="input-field" value={bodyweight} onChange={e => setBodyweight(e.target.value)} placeholder="kg/lbs" />
+          </div>
+          <div className="input-group" style={{ marginBottom: 0 }}>
+            <label className="input-label">Primary Goal</label>
+            <select className="input-field" value={goal} onChange={e => setGoal(e.target.value)} style={{ WebkitAppearance: 'none' }}>
+              <option value="">Select Goal</option>
+              <option value="Hypertrophy">Hypertrophy</option>
+              <option value="Strength">Strength</option>
+              <option value="Endurance">Endurance</option>
+              <option value="Weight Loss">Weight Loss</option>
+            </select>
           </div>
           <button type="submit" className="btn btn-primary" disabled={loading}>Save Profile</button>
         </form>
@@ -180,9 +178,9 @@ export default function ProfileSidebar({ isOpen, onClose }) {
         {/* Email Settings */}
         <div style={{ marginBottom: '2rem' }}>
           <h3 style={{ fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Mail size={16} /> Email Settings</h3>
-          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
-            <input type="email" className="input-field" style={{ flex: 1, padding: '0.6rem 1rem' }} value={email} onChange={e => setEmail(e.target.value)} />
-            <button onClick={handleUpdateEmail} className="btn btn-secondary" style={{ padding: '0.6rem 1rem' }} disabled={loading || email === user?.email}>Update</button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1rem' }}>
+            <input type="email" className="input-field" style={{ width: '100%', padding: '0.6rem 1rem' }} value={email} onChange={e => setEmail(e.target.value)} />
+            <button onClick={handleUpdateEmail} className="btn btn-secondary" style={{ width: '100%', padding: '0.6rem 1rem' }} disabled={loading || email === user?.email}>Update Email</button>
           </div>
         </div>
 
